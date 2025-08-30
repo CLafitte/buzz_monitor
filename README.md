@@ -8,7 +8,7 @@ This project uses a Raspberry Pi and a USB microphone to monitor bee activity in
 
 - Lightweight, self-contained Python script suitable for Raspberry Pi 3/4
 - Detects bee presence acoustically without disturbing plants or insects
-- Logs timestamped activity events to `bee_activity.csv`
+- Logs timestamped activity events to `buzz_activity.csv`
 - Optional console output for real-time monitoring
 
 ---
