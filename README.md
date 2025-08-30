@@ -59,4 +59,4 @@ Without a threshold, weak background noise could be logged as bee activity. Sett
 1. Install dependencies:
 
 ```bash
-pip install numpy scipy sounddevice
+pip install -r requirements.txt
