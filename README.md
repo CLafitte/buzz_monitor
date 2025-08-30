@@ -1,4 +1,4 @@
-# bee_monitor.py — Passive Acoustic Bee Activity Monitor
+# buzz_monitor.py — Passive Acoustic Bee Activity Monitor
 
 This project uses a Raspberry Pi and a USB microphone to monitor bee activity in small gardens or flowerbeds. It records short audio clips, estimates the power spectral density (PSD) using Welch’s method, and logs events when energy in the bee wingbeat frequency band (default: 200–300 Hz) exceeds a configurable `THRESHOLD`.
 
