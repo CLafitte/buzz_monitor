@@ -60,6 +60,7 @@ Without a threshold, weak background noise could be logged as bee activity. Sett
 
 ```bash
 pip install -r requirements.txt
+```
 
 2. Connect your USB microphone to the Raspberry Pi
 
@@ -67,8 +68,11 @@ pip install -r requirements.txt
 
 ```bash
 python bee_monitor.py
+```
 
 4. Check bee_activity.csv offline for logged events. For real-time monitoring, you attach a monitor attached and observe console output.
+
+---
 
 ## Outputs
 
