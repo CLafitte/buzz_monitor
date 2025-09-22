@@ -11,16 +11,14 @@ int main(int argc, char* argv[]) {
     std::string input_file = argv[1];
 
     try {
-        // Read WAV
         WavData data = WavReader::read(input_file);
-        std::cout << "Channels: " << data.num_channels 
-                  << ", Sample rate: " << data.sample_rate 
+        std::cout << "Channels: " << data.num_channels
+                  << ", Sample rate: " << data.sample_rate
                   << ", Num samples: " << data.samples.size() << std::endl;
 
-        // Call DSP placeholder
         PSDResult result = DSP::welch_psd(data, 200.0, 800.0);
-        std::cout << "Peak frequency: " << result.peak_frequency 
-                  << ", Band power: " << result.band_power << std::endl;
+        std::cout << "Peak frequency: " << result.peak_frequency
+                  << " Hz, Band power: " << result.band_power << std::endl;
 
     } catch (std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
