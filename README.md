@@ -2,6 +2,8 @@
 
 This project uses a Raspberry Pi and a USB microphone to monitor bee activity in small gardens or flowerbeds. It records short audio clips, estimates the power spectral density (PSD) using Welch’s method, and logs events when energy in the bee wingbeat frequency band (default: 200–300 Hz) exceeds a configurable `THRESHOLD`.
 
+This project is in alpha testing. To join testing, please download the latest release v.0.1.0. 
+
 ---
 
 ## Features
