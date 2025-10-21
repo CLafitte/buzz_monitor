@@ -1,6 +1,8 @@
-# buzz_monitor.py — Passive Acoustic Bee Activity Monitor
+# buzz_monitor
 
-This project uses a Raspberry Pi and a USB microphone to monitor bee activity in small gardens or flowerbeds. It records short audio clips, estimates the power spectral density (PSD) using Welch’s method, and logs events when energy in the bee wingbeat frequency band (default: 200–300 Hz) exceeds a configurable `THRESHOLD`.
+**A passive acoustic bee monitor**
+
+This project uses a Raspberry Pi and a USB microphone to monitor bee activity in small gardens or flowerbeds. It records short audio clips, estimates the power spectral density (PSD) using Welch’s method, and logs events when energy in the bee wingbeat frequency band (default: 200–300 Hz) exceeds a configurable `THRESHOLD`. 
 
 This project is in alpha testing. To join testing, please download the latest release v.0.1.0. 
 
@@ -21,28 +23,18 @@ This project is in alpha testing. To join testing, please download the latest re
 - `numpy`
 - `scipy`
 - `sounddevice`
-
-**Standard library modules (no install needed):**
-- `time`
-- `datetime`
-
 ---
 
 ## Hardware Requirements
 
 - Raspberry Pi 3/4 (or similar capable of running Python 3.x)
-- USB polar-pattern condenser microphone (plug-and-play)
+- Condenser USB microphone. Omnidirectional pattern recommended, but physical placement of the device might require different polar patterns. Any plug-and-play mic will work, since mics intended for human voice usually capture along the 100Hz - 8Khz range). 
 
 ---
 
-## Key Concepts
+## Defining THRESHOLD
 
-- **Welch’s method**: Produces a smoothed, averaged PSD, reducing the effect of random noise spikes and making it easier to detect consistent signals like bee buzz frequencies.  
 - **THRESHOLD**: Defines the minimum power in the bee frequency band that counts as activity, filtering out background noise (wind, traffic, etc.).
-
----
-
-## Why THRESHOLD Matters
 
 Without a threshold, weak background noise could be logged as bee activity. Setting an appropriate threshold ensures only signals strong enough to indicate actual bee presence are recorded.
 
@@ -84,4 +76,8 @@ Console prints: Optional real-time detection feedback.
 
 ## License
 
-MIT License
+MIT License. 
+
+## Open source and Alpha testing
+
+Please share any comments and contributions you might have at connor@connorlafitte.com
