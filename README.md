@@ -23,6 +23,7 @@ This project is in alpha testing. To join testing, please download the latest re
 - `numpy`
 - `scipy`
 - `sounddevice`
+  
 ---
 
 ## Hardware Requirements
