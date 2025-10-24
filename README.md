@@ -79,6 +79,107 @@ Console prints: Optional real-time detection feedback.
 
 MIT License. 
 
+## Speculative Future Iteration
+
+The following is a conceptual design for integrating a highly lightweight ML detector into buzz_monitor.  
+This 1-bit CNN pipeline is speculative and intended to illustrate how real-time bee detection could be added in future versions.
+Future iteration would likely rely on `TensorFlow`/`Keras` for convolution and backprop and `Larq` for quantization to 1-bit. 
+
+```text
+      +----------------------+
+      |  USB Microphone       |
+      +----------------------+
+           16 kHz, 6 s
+                |
+                v
+      +----------------------+
+      |  Audio Capture       |  <- 96 k samples per burst
+      +----------------------+
+                |
+                v
+      +----------------------------+
+      | Feature Extraction         |
+      |  - MFCCs or log-mel       |
+      |  - 32 mel bands × 32 frames|
+      |  - Float32 (~4 KB)        |
+      +----------------------------+
+                |
+                v
+      +----------------------------+
+      |  1-bit CNN Detector        |
+      | Input: 32×32×1            |
+      +----------------------------+
+      | Layer 1: Binary Conv 3×3  |
+      | 16 filters, stride 1, pad1 |
+      | Output: 32×32×16           |
+      | Weights: 144 bits (~18 B)  |
+      +----------------------------+
+      | Layer 2: Binary Activation |
+      +----------------------------+
+      | Layer 3: MaxPool 2×2       |
+      | Output: 16×16×16           |
+      +----------------------------+
+      | Layer 4: Binary Conv 3×3   |
+      | 32 filters                  |
+      | Output: 16×16×32           |
+      | Weights: 4608 bits (~576 B)|
+      +----------------------------+
+      | Layer 5: Binary Activation |
+      +----------------------------+
+      | Layer 6: MaxPool 2×2       |
+      | Output: 8×8×32             |
+      +----------------------------+
+      | Layer 7: Flatten           |
+      | 8×8×32 → 2048             |
+      +----------------------------+
+      | Layer 8: Binary FC          |
+      | 2048→64                     |
+      | Weights: 131,072 bits (~16 KB)|
+      +----------------------------+
+      | Layer 9: Binary Activation |
+      +----------------------------+
+      | Layer10: Fully Connected    |
+      | 64 → 1 (bee / not bee)     |
+      | Weights: 64 bits (~8 B)    |
+      +----------------------------+
+      | Output: Sigmoid / confidence|
+      +----------------------------+
+           |         |
+      [Bee detected] [No bee]
+           |         |
+           v         v
+   +---------------+  +----------------+
+   | Store audio & |  | Optional discard|
+   | prediction    |  | or low priority |
+   +---------------+  +----------------+
+           |
+           v
+   +----------------------------+
+   | Buffer ambiguous / flagged |
+   | clips for QC / retraining  |
+   +----------------------------+
+           |
+           v
+   +----------------------------+
+   | Video-based labeling       |
+   | Align timestamps, label TP/TN |
+   +----------------------------+
+           |
+           v
+   +----------------------------+
+   | Offline retraining         |
+   | Update 1-bit CNN weights   |
+   +----------------------------+
+           |
+           v
+   +----------------------------+
+   | Deploy updated model to Pi |
+   +----------------------------+
+           |
+       Loop back
+```
+
 ## Open source and Alpha testing
 
 Please share any comments and contributions you might have at connor@connorlafitte.com
+
